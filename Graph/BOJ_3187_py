@@ -1,0 +1,35 @@
+import sys
+from collections import deque
+R,C = map(int,sys.stdin.readline().split())
+graph = [[] for _ in range(R)]
+for i in range(R):
+    graph[i] = list(sys.stdin.readline().strip())
+dx,dy = [0,0,1,-1], [1,-1,0,0]
+vresult,kresult = 0,0
+def bfs(sx,sy):
+    global vresult,kresult
+    queue = deque()
+    dic = {'v':0, 'k':0, '.': 0}
+    dic[graph[sx][sy]] += 1
+    graph[sx][sy] = '#'
+    queue.append((sx,sy))
+    while queue:
+        x,y = queue.popleft()
+        for t in range(4):
+            newx,newy = x+dx[t], y+dy[t]
+            if 0<=newx<R and 0<=newy<C:
+                if graph[newx][newy] == '#':
+                    continue
+                dic[graph[newx][newy]] += 1
+                graph[newx][newy] = '#'
+                queue.append((newx,newy))
+    if dic['k'] > dic['v']:
+        kresult += dic['k']
+    else:
+        vresult += dic['v']
+for j in range(R):
+    for k in range(C):
+        if graph[j][k] == '#':
+            continue
+        bfs(j,k)
+print(kresult,vresult)
