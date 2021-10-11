@@ -13,8 +13,8 @@ for i in range(N):
             srkx,srky=i,j
 dx,dy = [0,0,-1,1],[-1,1,0,0]
 sharksize = 2
-eatfish = 0
 result = 0
+eatfish = 0
 def bfs(sx,sy):
     global result, fish, sharksize, srkx,srky, eatfish
     visited = [[0 for _ in range(N)] for _ in range(N)]
