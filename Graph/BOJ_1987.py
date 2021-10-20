@@ -18,9 +18,11 @@ def bfs(a,b):
 
       for i in range(4):
           nx,ny = x+dx[i],y+dy[i]
+
           if 0<=nx<R and 0<=ny<C and graph[nx][ny] not in track and check[nx][ny] != track+graph[nx][ny]:
             check[nx][ny] = track+graph[nx][ny]
             q.add((nx,ny,check[nx][ny]))
+            
   return result
 
 print(bfs(0,0))
