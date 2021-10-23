@@ -1,0 +1,14 @@
+n,m = map(int,input().split())
+s = {}
+for _ in range(n):
+    a = input().strip()
+    s[a] = 1
+result = 0
+for _ in range(m):
+  a = input().strip()
+  try:
+    s[a]+=1
+    result+=1
+  except:
+    continue
+print(result)
