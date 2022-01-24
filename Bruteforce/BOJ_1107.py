@@ -20,8 +20,12 @@ for i in range(answer):
   test = N+i
   if check(test):
     answer = min(answer, abs(N-test)+len(str(test)))
+    break
+  
+for i in range(answer):
   test = N-i
   if test >= 0 and check(test):
     answer = min(answer, abs(N-test)+len(str(test)))
+    break
 
 print(answer)
