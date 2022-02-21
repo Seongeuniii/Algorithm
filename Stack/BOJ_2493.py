@@ -1,15 +1,20 @@
-import sys
+N = int(input())
+topList = list(map(int,input().split()))
 stack = []
-n = int(sys.stdin.readline())
-top = list(map(int,sys.stdin.readline().split()))
-for i in range(n):
-    while len(stack) != 0:
-        if stack[-1][1] > top[i]:
-            print(stack[-1][0],end=' ')
-            stack.append([i+1,top[i]])
-            break
-        else:
-            stack.pop()
-    if len(stack) == 0:
-        print(0,end=' ')
-        stack.append([i+1,top[i]])
+answer = []
+
+for i in range(N):
+  while stack:
+    if topList[stack[-1]] >= topList[i]:
+      break
+    else:
+      stack.pop()
+
+  if stack:
+    answer.append(stack[-1] + 1)
+  else:
+    answer.append(0)
+
+  stack.append(i)
+
+print(' '.join(map(str,answer)))
