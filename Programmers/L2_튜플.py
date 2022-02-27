@@ -1,9 +1,10 @@
 def solution(s):
     answer = []
     s = s[2:-2].split('},{')
-    
+    print(s)
     for i in range(len(s)):
       s[i] = list(map(int,s[i].split(',')))
+    print(s)
 
     for li in sorted(s, key=len):
         for l in li:
