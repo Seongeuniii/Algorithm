@@ -4,35 +4,41 @@ from collections import deque
 from itertools import permutations
 input = sys.stdin.readline
 
-def attack(X, board):
+def attack(case, board):
   dx, dy = [0,0,-1], [-1,1,0]
+  catch = set()
 
-  check = [[0]*M for _ in range(N)]
-  catch = []
-  d = 0
-  q = deque([(N, X)])
+  for x in case:
+    d = 0
+    check = [[0]*M for _ in range(N)]
+    q = deque([(N, x)])
+    c = []
 
-  while q and d < D:
-    d += 1
-    nq = q
-    q = deque()
+    while q and d < D:
+      d += 1
+      nq = q
+      q = deque()
 
-    while nq:
-      x, y = nq.popleft()
-      for i in range(3):
-        nx, ny = x+dx[i], y+dy[i]
-        if 0 <= nx < N and 0 <= ny <M and not check[nx][ny]:
-          if board[nx][ny]:
-            catch.append([nx, ny])
-          else:
-            check[nx][ny] = 1
-            q.append((nx,ny))
+      while nq:
+        x, y = nq.popleft()
+        for i in range(3):
+          nx, ny = x+dx[i], y+dy[i]
+          if 0 <= nx < N and 0 <= ny <M and not check[nx][ny]:
+            if board[nx][ny]:
+              c.append((nx, ny))
+            else:
+              check[nx][ny] = 1
+              q.append((nx,ny))
 
-    if catch:
-      catch.sort(key=lambda x:x[1])
-      return catch[0]
+      if c:
+        catch.add(sorted(c, key=lambda x:x[1])[0])
+        break
+
+  if catch:
+    for x, y in catch:
+      board[x][y] = 0
   
-  return 0
+  return len(catch)
 
 def move(board):
   cnt = 0
@@ -51,20 +57,16 @@ def move(board):
 def solution():
   answer = 0
 
-  for case in list(permutations([i for i in range(M)],3)):
+  for case in list(permutations(range(M),3)):
     enemy = ENEMY
     kill = 0
     board = copy.deepcopy(BOARD)
 
     while enemy:
-      catch = []
-      for x in case:
-        catch.append(attack(x, board))
-      for c in catch:
-        if c and board[c[0]][c[1]]:
-          board[c[0]][c[1]] = 0
-          kill += 1
-          enemy -= 1
+      result = attack(case, board)
+      kill += result
+      enemy -= result
+
       if enemy:
         enemy -= move(board)
 
@@ -81,3 +83,4 @@ for i in range(N):
   ENEMY += BOARD[i].count(1)
 
 print(solution())
+
