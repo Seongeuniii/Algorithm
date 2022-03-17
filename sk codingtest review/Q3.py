@@ -64,3 +64,5 @@ def solution(W, H, diagonals):
   return dp[0][W][1] % 10000019
 
 print(solution(51,	37,	[[17,19]]))
+
+# 이항계수
