@@ -39,3 +39,5 @@ def solution(money, costs):
             dp[i] = min(dp[i], dp[i - value[j]] + cost)
 
     return dp[-1]
+
+print(solution(1999,	[2, 11, 20, 100, 200, 600]))
