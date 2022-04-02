@@ -1,7 +1,5 @@
 import sys
 input = sys.stdin.readline
-N,M = map(int,input().split())
-parent = [i for i in range(N+1)]
 
 def find(x):
   if (x != parent[x]):
@@ -14,8 +12,11 @@ def union(l,r):
   if pl != pr :
     parent[pr] = pl
 
+N,M = map(int,input().split())
+parent = [i for i in range(N+1)]
+
 for _ in range(M):
-  a,b,c = map(int,input().split())
+  a, b, c = map(int,input().split())
   if a == 0:
     union(b,c)
   else: 
