@@ -1,6 +1,3 @@
-from itertools import chain
-
-
 class Node:
     def __init__(self, data, prev = None, next = None):
         self.data = data
@@ -47,7 +44,6 @@ class DoubleLinkedList:
         return False
 
     def delete(self, node):
-        print(node.prev.data, node.next.data)
         node.prev.next = node.next
         node.next.prev = node.prev
         self.size -= 1
@@ -66,14 +62,10 @@ def solution(cacheSize, cities):
             answer += 1
         else:  
             answer += 5
-        
+
         if cache.size == cacheSize:
-            # print('delete: ', cache.head.next.data)
             cache.delete(cache.head.next)
 
         cache.add_last(Node(city.lower()))
 
-        # print(cache.head.next.data, cache.tail.prev.data, cache.size)
     return answer
-
-print(solution(3, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "Jeju", "Pangyo", "Seoul", "NewYork", "LA"]))
